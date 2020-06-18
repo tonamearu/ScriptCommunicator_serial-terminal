@@ -23,7 +23,6 @@ win32{
 QT += winextras
 }
 
-DEFINES += QUAZIP_STATIC
 unix{
 LIBS += -ldl
 }
@@ -35,7 +34,6 @@ cheetahSpi \
 aardvarkI2cSpi \
 pcan \
 scriptClasses/canvas2D \
-quazip \
 ScriptEditor
 
 RC_FILE = images/ScriptCommunicator.rc
@@ -83,34 +81,6 @@ SOURCES += \
     scriptClasses/canvas2D/context2d.cpp \
     scriptClasses/canvas2D/qcontext2dcanvas.cpp \
     createSceFile.cpp \
-    quazip/JlCompress.cpp \
-    quazip/qioapi.cpp \
-    quazip/quaadler32.cpp \
-    quazip/quacrc32.cpp \
-    quazip/quagzipfile.cpp \
-    quazip/quaziodevice.cpp \
-    quazip/quazip.cpp \
-    quazip/quazipdir.cpp \
-    quazip/quazipfile.cpp \
-    quazip/quazipfileinfo.cpp \
-    quazip/quazipnewinfo.cpp \
-    quazip/zLib/adler32.c \
-    quazip/zLib/compress.c \
-    quazip/zLib/crc32.c \
-    quazip/zLib/deflate.c \
-    quazip/zLib/gzclose.c \
-    quazip/zLib/gzlib.c \
-    quazip/zLib/gzread.c \
-    quazip/zLib/gzwrite.c \
-    quazip/zLib/infback.c \
-    quazip/zLib/inffast.c \
-    quazip/zLib/inflate.c \
-    quazip/zLib/inftrees.c \
-    quazip/zLib/trees.c \
-    quazip/zLib/uncompr.c \
-    quazip/zLib/zutil.c \
-    quazip/unzip.c \
-    quazip/zip.c \
     scriptClasses/scriptUiClasses/scriptPlotwidget.cpp \
     scriptClasses/scriptConverter.cpp \
     aardvarkI2cSpi/aardvark.c \
@@ -197,33 +167,6 @@ HEADERS += \
     scriptClasses/canvas2D/context2d.h \
     scriptClasses/canvas2D/qcontext2dcanvas.h \
     createSceFile.h \
-    quazip/zLib/crc32.h \
-    quazip/zLib/deflate.h \
-    quazip/zLib/gzguts.h \
-    quazip/zLib/inffast.h \
-    quazip/zLib/inffixed.h \
-    quazip/zLib/inflate.h \
-    quazip/zLib/inftrees.h \
-    quazip/zLib/trees.h \
-    quazip/zLib/zconf.h \
-    quazip/zLib/zlib.h \
-    quazip/zLib/zutil.h \
-    quazip/crypt.h \
-    quazip/ioapi.h \
-    quazip/JlCompress.h \
-    quazip/quaadler32.h \
-    quazip/quachecksum32.h \
-    quazip/quacrc32.h \
-    quazip/quagzipfile.h \
-    quazip/quaziodevice.h \
-    quazip/quazip.h \
-    quazip/quazip_global.h \
-    quazip/quazipdir.h \
-    quazip/quazipfile.h \
-    quazip/quazipfileinfo.h \
-    quazip/quazipnewinfo.h \
-    quazip/unzip.h \
-    quazip/zip.h \
     scriptClasses/scriptObject.h \
     scriptClasses/scriptTimer.h \
     scriptClasses/scriptConverter.h \
@@ -247,3 +190,71 @@ FORMS += \
 
 RESOURCES += \
     ScriptCommunicator.qrc
+
+# prefer external quazip if the variable EXTERNAL_QUAZIP is defined
+isEmpty(EXTERNAL_QUAZIP) {
+    DEFINES += QUAZIP_STATIC
+    INCLUDEPATH += quazip
+
+    SOURCES += \
+	quazip/JlCompress.cpp \
+	quazip/qioapi.cpp \
+	quazip/quaadler32.cpp \
+	quazip/quacrc32.cpp \
+	quazip/quagzipfile.cpp \
+	quazip/quaziodevice.cpp \
+	quazip/quazip.cpp \
+	quazip/quazipdir.cpp \
+	quazip/quazipfile.cpp \
+	quazip/quazipfileinfo.cpp \
+	quazip/quazipnewinfo.cpp \
+	quazip/zLib/adler32.c \
+	quazip/zLib/compress.c \
+	quazip/zLib/crc32.c \
+	quazip/zLib/deflate.c \
+	quazip/zLib/gzclose.c \
+	quazip/zLib/gzlib.c \
+	quazip/zLib/gzread.c \
+	quazip/zLib/gzwrite.c \
+	quazip/zLib/infback.c \
+	quazip/zLib/inffast.c \
+	quazip/zLib/inflate.c \
+	quazip/zLib/inftrees.c \
+	quazip/zLib/trees.c \
+	quazip/zLib/uncompr.c \
+	quazip/zLib/zutil.c \
+	quazip/unzip.c \
+	quazip/zip.c \
+
+    HEADERS += \
+	quazip/zLib/crc32.h \
+	quazip/zLib/deflate.h \
+	quazip/zLib/gzguts.h \
+	quazip/zLib/inffast.h \
+	quazip/zLib/inffixed.h \
+	quazip/zLib/inflate.h \
+	quazip/zLib/inftrees.h \
+	quazip/zLib/trees.h \
+	quazip/zLib/zconf.h \
+	quazip/zLib/zlib.h \
+	quazip/zLib/zutil.h \
+	quazip/crypt.h \
+	quazip/ioapi.h \
+	quazip/JlCompress.h \
+	quazip/quaadler32.h \
+	quazip/quachecksum32.h \
+	quazip/quacrc32.h \
+	quazip/quagzipfile.h \
+	quazip/quaziodevice.h \
+	quazip/quazip.h \
+	quazip/quazip_global.h \
+	quazip/quazipdir.h \
+	quazip/quazipfile.h \
+	quazip/quazipfileinfo.h \
+	quazip/quazipnewinfo.h \
+	quazip/unzip.h \
+	quazip/zip.h \
+} else {
+    CONFIG += link_pkgconfig
+    PKGCONFIG += quazip
+}

@@ -5090,7 +5090,7 @@ void MainWindow::loadConfigSlot()
  * @param version
  *      The parsed verion.
  * @return
- *      True if the current ScripCommunicator version is sufficient to execute the sce file.
+ *      True if the current ScriptCommunicator version is sufficient to execute the sce file.
  */
 bool MainWindow::checkParsedScVersion(QString version)
 {

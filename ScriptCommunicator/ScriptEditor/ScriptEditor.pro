@@ -174,3 +174,6 @@ FORMS += \
 DISTFILES += \
     images/font.png \
     images/close.png
+
+# linux-based installation with package manager
+!isEmpty(LINUX_PM_INSTALL): DEFINES+=LINUX_PM_INSTALL

@@ -888,7 +888,9 @@ void ScriptWindow::editUiSlot()
     if(selectedRow != -1)
     {
         QString program;
-#ifdef Q_OS_LINUX
+#ifdef LINUX_PM_INSTALL
+        program = "designer";
+#elif defined Q_OS_LINUX
         program = QCoreApplication::applicationDirPath() + "/designer";
 #elif defined Q_OS_MAC
 

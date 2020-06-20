@@ -1,4 +1,5 @@
 #include "parseThread.h"
+#include <QDir>
 #include <QFile>
 #include <QFileInfo>
 #include "mainwindow.h"
@@ -16,7 +17,9 @@
  */
 QString getScriptEditorFilesFolder(void)
 {
-#ifdef Q_OS_MAC
+#ifdef LINUX_PM_INSTALL
+    return QDir::cleanPath(QCoreApplication::applicationDirPath()+"/../share/ScriptCommunicator");
+#elif defined Q_OS_MAC
     return QCoreApplication::applicationDirPath() + "/../../..";
 #else
     return QCoreApplication::applicationDirPath();

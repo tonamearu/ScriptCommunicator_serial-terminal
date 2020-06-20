@@ -43,6 +43,7 @@
 #include <QFileDialog>
 #include <QDomDocument>
 #include "scriptwindow.h"
+#include <QLibraryInfo>
 #include <QStandardPaths>
 #include "addmessagedialog.h"
 #include "canTab.h"
@@ -2448,7 +2449,9 @@ void MainWindow::configHasToBeSavedSlot(void)
 QString MainWindow::getPluginsFolder(void)
 {
     QString path;
-#ifdef Q_OS_LINUX
+#ifdef LINUX_PM_INSTALL
+    path = QLibraryInfo::location(QLibraryInfo::PluginsPath);
+#elif defined Q_OS_LINUX
     path = QCoreApplication::applicationDirPath() + "/bin/plugins";
 #elif defined Q_OS_MAC
     path =  getScriptCommunicatorFilesFolder () + "/plugins";
@@ -2467,7 +2470,9 @@ QString MainWindow::getPluginsFolder(void)
  */
 QString MainWindow::getScriptCommunicatorFilesFolder(void)
 {
-#ifdef Q_OS_MAC
+#ifdef LINUX_PM_INSTALL
+    return QDir::cleanPath(QCoreApplication::applicationDirPath() + "/../share/ScriptCommunicator");
+#elif defined Q_OS_MAC
     return QCoreApplication::applicationDirPath() + "/../../..";
 #else
     return QCoreApplication::applicationDirPath();
@@ -3481,7 +3486,9 @@ bool MainWindow::startScriptEditor(QString scriptEditor, QStringList arguments, 
 void MainWindow::openScriptEditor(QStringList arguments, const Settings* currentSettings, QWidget* parent)
 {
     QString internalScriptEditor;
-#ifdef Q_OS_LINUX
+#ifdef LINUX_PM_INSTALL
+    internalScriptEditor = "ScriptEditor";
+#elif defined Q_OS_LINUX
     internalScriptEditor = QCoreApplication::applicationDirPath() + "/ScriptEditor";
 #elif defined Q_OS_MAC
     internalScriptEditor = QCoreApplication::applicationDirPath() + "/ScriptEditor";
@@ -5090,7 +5097,7 @@ void MainWindow::loadConfigSlot()
  * @param version
  *      The parsed verion.
  * @return
- *      True if the current ScripCommunicator version is sufficient to execute the sce file.
+ *      True if the current ScriptCommunicator version is sufficient to execute the sce file.
  */
 bool MainWindow::checkParsedScVersion(QString version)
 {

@@ -1142,7 +1142,9 @@ void MainWindow::closeDocumentSlot()
 void MainWindow::startDesigner(QString uiFile)
 {
     QString program;
-#ifdef Q_OS_LINUX
+#ifdef LINUX_PM_INSTALL
+    program = "designer";
+#elif defined Q_OS_LINUX
     program = getScriptEditorFilesFolder() + "/designer";
 #elif defined Q_OS_MAC
 
@@ -1252,7 +1254,9 @@ void MainWindow::startScriptEditor(QStringList arguments)
 
     QString scriptEditor;
 
-#ifdef Q_OS_LINUX
+#ifdef LINUX_PM_INSTALL
+    scriptEditor = "ScriptEditor";
+#elif defined Q_OS_LINUX
     scriptEditor = getScriptEditorFilesFolder() + "/ScriptEditor";
 #elif defined Q_OS_MAC
     scriptEditor = getScriptEditorFilesFolder() + "/ScriptEditor";

@@ -61,7 +61,7 @@ void deleteCurrentScezFolder(void)
         QString program = QCoreApplication::applicationDirPath() + "/DeleteFolder";
         program = QCoreApplication::applicationDirPath() + "/DeleteFolder";
 
-#ifdef QT_DEBUG
+#if defined(QT_DEBUG) || defined(LINUX_PM_INSTALL)
         QDir(g_currentScezFolder).removeRecursively();
 #else
         QProcess::startDetached(program, QStringList() << g_currentScezFolder, QString(""));

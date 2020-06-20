@@ -258,3 +258,6 @@ isEmpty(EXTERNAL_QUAZIP) {
     CONFIG += link_pkgconfig
     PKGCONFIG += quazip
 }
+
+# linux-based installation with package manager
+!isEmpty(LINUX_PM_INSTALL): DEFINES+=LINUX_PM_INSTALL
